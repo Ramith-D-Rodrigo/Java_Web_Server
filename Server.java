@@ -6,8 +6,8 @@ public class Server implements Runnable{
 
     public static final File WEB_ROOT = new File("htdocs"); //starting directory
     public static final String DEFAULT_FILE = "index.html";    //initial page of the webserver (when you type localhost:PORT in the web browser)
-    public static final String UNSUPPORTED_METHOD = "unsupported_request.html"; //page that loads when the client request is not supported
-    public static final String FILE_NOT_FOUND = "404.html";    //page that loads when the client requests for a web page that is not located in htdocs
+    public static final String UNSUPPORTED_METHOD = "Error Handling Pages/unsupported_request.html"; //page that loads when the client request is not supported
+    public static final String FILE_NOT_FOUND = "Error Handling Pages/404.html";    //page that loads when the client requests for a web page that is not located in htdocs
 
     public static final int PORT = 2728;  //port number which the server listens to
 
