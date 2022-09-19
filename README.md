@@ -11,6 +11,7 @@ Steps to Run the Server:
 Step 1: Open the Terminal from the current directory (The directory that has Main.java) In windows, you can type "cmd" in the file directory path in the explorer window and open the Command Prompt.
 
 Step 2: Type "javac Main.java" in the terminal to compile the program.
+
 Step 3: Once compiled, type "java Main.java" in the terminal to run the program.
 
 It will display the following message :-
