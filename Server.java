@@ -5,7 +5,7 @@ import java.io.*;
 public class Server implements Runnable{
 
     public static final File WEB_ROOT = new File("htdocs"); //starting directory
-    public static final String DEFAULT_FILE = "index.html";    //inital page of the webserver (when you type localhost:PORT into the web browser)
+    public static final String DEFAULT_FILE = "index.html";    //initial page of the webserver (when you type localhost:PORT in the web browser)
     public static final String UNSUPPORTED_METHOD = "unsupported_request.html"; //page that loads when the client request is not supported
     public static final String FILE_NOT_FOUND = "404.html";    //page that loads when the client requests for a web page that is not located in htdocs
 
@@ -36,7 +36,7 @@ public class Server implements Runnable{
             StringTokenizer parse = new StringTokenizer(clientInput);   //parse into String tokenizer so we can split the structure of the HTTP request
             String HTTPMethod = parse.nextToken().toUpperCase();    //first token is the HTTP method
 
-            requestedFile = parse.nextToken().toLowerCase();
+            requestedFile = parse.nextToken().toLowerCase();    //find which webpage is requested by the client
 
             //System.out.println(requestedFile + " - " + clientInput + " - " + HTTPMethod);
 
@@ -58,7 +58,7 @@ public class Server implements Runnable{
                 output.println();   //a blank line between header and the content of the html file
                 output.flush();     //flush character output stream buffer
 
-                dataOut.write(fileData, 0, fileLength);
+                dataOut.write(fileData, 0, fileLength); //write the file to the browser
                 dataOut.flush();
             }
             else{
@@ -68,7 +68,7 @@ public class Server implements Runnable{
                     requestedFile += DEFAULT_FILE;  //add the initial web page, i.e. index.html
                 }
 
-                File file = new File(WEB_ROOT, requestedFile);
+                File file = new File(WEB_ROOT, requestedFile);  //load the webpage 
                 int fileLength = (int) file.length();
                 String content = getContentType(requestedFile);
 
@@ -86,7 +86,6 @@ public class Server implements Runnable{
 
                     dataOut.write(fileData, 0, fileLength);
                     dataOut.flush();
-                    System.out.println("hi");
                 }
 
                 if(verbose){
@@ -94,12 +93,12 @@ public class Server implements Runnable{
                 }
             }
         }
-        catch(FileNotFoundException e1){
+        catch(FileNotFoundException e1){    //webpage not found
             try{
-                fileNotFound(output, dataOut, requestedFile);
+                fileNotFound(output, dataOut, requestedFile);   //try to see if the client has requested a webpage that is not in htdocs
             }
             catch(IOException e2){
-                System.out.println("File not found. Error : " + e2.getMessage());
+                System.out.println("File not found. Error : " + e2.getMessage());  
             }
         }
         catch(IOException e3){
@@ -112,7 +111,7 @@ public class Server implements Runnable{
                 dataOut.close();    //close the buffer
                 connection.close(); //close the connection
             } catch (Exception e) {
-                System.err.println("Error while closing the input stream. Error: " + e.getMessage());
+                System.err.println("Error while closing. Error: " + e.getMessage());
             }
             if(verbose){
                 System.out.println("connection closed");
@@ -135,16 +134,22 @@ public class Server implements Runnable{
         return fileData;
     }
 
-    private String getContentType(String requestedFile){
+    private String getContentType(String requestedFile){    //function to find the content type of the file
         if(requestedFile.endsWith(".htm") || requestedFile.endsWith(".html")){  //the current checking file is html
             return "text/html";
+        }
+        else if(requestedFile.endsWith(".js")){   //javascript files
+            return "text/js";
+        }
+        else if(requestedFile.endsWith(".css")){    //css files
+            return "text/css";
         }
         else{   //other files
             return "text/plain";
         }
     }
 
-    private void fileNotFound(PrintWriter output, OutputStream dataOut, String requestedFile) throws IOException{
+    private void fileNotFound(PrintWriter output, OutputStream dataOut, String requestedFile) throws IOException{   //function to load the 404 webpage
         File file = new File(WEB_ROOT, FILE_NOT_FOUND);     //load the correspoding web page to show the file not found error
         int fileLength = (int) file.length();
         String content = "text/html";
