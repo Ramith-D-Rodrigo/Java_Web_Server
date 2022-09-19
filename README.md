@@ -16,8 +16,8 @@ Step 3: Once compiled, type "java Main.java" in the terminal to run the program.
 
 It will display the following message :-
 
-Server successfully started.
-Server is listening to PORT 2728
+"Server successfully started.
+Server is listening to PORT 2728"
 
 Step 4: Once the message is shown, open the web browser and type "localhost:2728" in the URL bar.
 
