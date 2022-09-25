@@ -12,7 +12,7 @@ Step 1: Open the Terminal from the current directory (The directory that has Mai
 
 Step 2: Type "javac Main.java" in the terminal to compile the program.
 
-Step 3: Once compiled, type "java Main.java" in the terminal to run the program.
+Step 3: Once compiled, type "java Main" in the terminal to run the program.
 
 It will display the following message :-
 
